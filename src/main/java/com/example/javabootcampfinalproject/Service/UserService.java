@@ -22,8 +22,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
-    private final ManufacturerRepository manufacturerRepository;
-    private final CustomerRepository customerRepository;
+
+    private final CustomerService customerService;
+    private final ManufacturerService manufacturerService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
@@ -34,10 +36,10 @@ public class UserService implements UserDetailsService {
 
     public void registerManufacturer(ManufacturerDTO dto){
         User user = new User(null, dto.getUsername(), dto.getPassword(), dto.getPhoneNumber(),"MANUFACTURER",null,null);
-        Manufacturer manufacturer = new Manufacturer(null, dto.getName(), dto.getCategory(), dto.getLocation(),user);
+        Manufacturer manufacturer = new Manufacturer(null, dto.getName(), dto.getCategory(), dto.getLocation(),user,null);
         String hashed = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(hashed);
-        manufacturerRepository.save(manufacturer);
+        manufacturerService.addManufacturer(manufacturer);
         userRepository.save(user);
     }
 
@@ -46,7 +48,7 @@ public class UserService implements UserDetailsService {
         Customer customer = new Customer(null, dto.getName(), dto.getLocation(),user);
         String hashed = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(hashed);
-        customerRepository.save(customer);
+        customerService.addCustomer(customer);
         userRepository.save(user);
     }
 
@@ -57,5 +59,34 @@ public class UserService implements UserDetailsService {
         userRepository.delete(user);
     }
 
+    public void updateManufacturer(Integer id, ManufacturerDTO dto){
+        User user = userRepository.findUserById(id);
+        if (user == null)
+            throw new ApiException("ID not found",400);
+        user.setUsername(dto.getUsername());
+        String hashed = new BCryptPasswordEncoder().encode(dto.getPassword());
+        user.setPassword(hashed);
+        user.setPhoneNumber(dto.getPhoneNumber());
+        manufacturerService.updateManufacturer(id,dto);
+        userRepository.save(user);
+    }
 
+    public void updateCustomer(Integer id, CustomerDTO dto){
+        User user = userRepository.findUserById(id);
+        if (user == null)
+            throw new ApiException("ID not found",400);
+        user.setUsername(dto.getUsername());
+        String hashed = new BCryptPasswordEncoder().encode(dto.getPassword());
+        user.setPassword(hashed);
+        user.setPhoneNumber(dto.getPhoneNumber());
+        customerService.updateCustomer(id,dto);
+        userRepository.save(user);
+    }
+
+    public User getInfo(Integer id){
+        User user = userRepository.findUserById(id);
+        if (user == null)
+            throw new ApiException("ID not found",400);
+        return user;
+    }
 }

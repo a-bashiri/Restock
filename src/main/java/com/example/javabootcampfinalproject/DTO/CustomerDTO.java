@@ -1,5 +1,6 @@
 package com.example.javabootcampfinalproject.DTO;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

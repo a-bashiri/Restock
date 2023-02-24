@@ -6,27 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Manufacturer {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
-    private String category;
-    private String location;
+    private float price;
 
-    @OneToOne
-    @MapsId
-    @JsonIgnore
-    private User user;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
-    @JsonIgnore
-    private List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id",referencedColumnName = "user_id")
+    private Manufacturer manufacturer;
 }

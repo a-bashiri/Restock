@@ -42,5 +42,22 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new Response("User Deleted!",200));
     }
 
+    @PutMapping("/update/manufacturer")
+    public ResponseEntity<Response> updateManufacturer(@AuthenticationPrincipal User user,@Valid @RequestBody ManufacturerDTO dto){
+        userService.updateManufacturer(user.getId(), dto);
+        return ResponseEntity.status(HttpStatus.OK).body(new Response("Manufacturer Updated!",200));
+    }
+
+    @PutMapping("/update/customer")
+    public ResponseEntity<Response> updateCustomer(@AuthenticationPrincipal User user,@Valid @RequestBody CustomerDTO dto){
+        userService.updateCustomer(user.getId(), dto);
+        return ResponseEntity.status(HttpStatus.OK).body(new Response("Customer Updated!",200));
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<User> getInfo(@AuthenticationPrincipal User user){
+        User user1 = userService.getInfo(user.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(user1);
+    }
 
 }
