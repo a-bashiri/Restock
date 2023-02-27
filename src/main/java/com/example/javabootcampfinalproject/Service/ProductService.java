@@ -42,4 +42,6 @@ public class ProductService {
             throw new ApiException("Not authorized to delete this product",403);
         productRepository.delete(product);
     }
+
+
 }
