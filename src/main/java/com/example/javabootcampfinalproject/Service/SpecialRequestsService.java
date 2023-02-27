@@ -1,5 +1,6 @@
 package com.example.javabootcampfinalproject.Service;
 
+import com.example.javabootcampfinalproject.Exception.ApiException;
 import com.example.javabootcampfinalproject.Model.SpecialRequest;
 import com.example.javabootcampfinalproject.Repository.SpecialRequestsRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,24 @@ public class SpecialRequestsService {
     }
 
     public void addSpecialRequest(SpecialRequest specialRequest){
-
+        specialRequestsRepository.save(specialRequest);
     }
+
+    public void updateSpecialRequest(Integer id, SpecialRequest newSpecialRequest){
+        SpecialRequest specialRequest = specialRequestsRepository.findSpecialRequestById(id);
+        if (specialRequest == null)
+            throw new ApiException("ID not found",400);
+        specialRequest.setRequest(newSpecialRequest.getRequest());
+        specialRequest.setPrice(newSpecialRequest.getPrice());
+        specialRequestsRepository.save(specialRequest);
+    }
+
+    public void deleteSpecialRequest(Integer id){
+        SpecialRequest specialRequest = specialRequestsRepository.findSpecialRequestById(id);
+        if (specialRequest == null)
+            throw new ApiException("ID not found",400);
+        specialRequestsRepository.delete(specialRequest);
+    }
+
 
 }
