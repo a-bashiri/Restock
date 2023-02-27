@@ -18,7 +18,9 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String status;
+    @Enumerated(EnumType.ORDINAL)
+    private OrderStatus status;
+
     private float totalPrice;
     private String sourceLocation;
     private String destinationLocation;
@@ -26,19 +28,19 @@ public class Orders {
     private Date ApprovalDate;
     private Date deliverDate;
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(mappedBy = "orders", fetch = FetchType.EAGER)
     private List<SpecialRequest> specialRequests;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<ProductDetail> productDetails;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id",referencedColumnName = "user_id")
     @JsonIgnore
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "manufacturer_id",referencedColumnName = "id")
+    @JoinColumn(name = "manufacturer_id",referencedColumnName = "user_id")
     @JsonIgnore
     private Manufacturer manufacturer;
 }

@@ -22,7 +22,7 @@ public class SpecialRequest {
     private String request;
     private float price;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Orders> orders;
 }

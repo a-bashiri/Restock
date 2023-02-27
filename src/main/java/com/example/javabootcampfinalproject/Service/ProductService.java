@@ -12,11 +12,20 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
+
     private final ProductRepository productRepository;
 
 
+    public Product getProduct(Integer productId){
+        return productRepository.findProductById(productId);
+    }
+
     public List<Product> getAllProducts(User user){
-        return productRepository.findProductsByManufacturer_Id(user.getManufacturer().getId());
+        return getAllProducts(user.getManufacturer().getId());
+    }
+
+    public List<Product> getAllProducts(Integer manufacturerId){
+        return productRepository.findProductsByManufacturer_Id(manufacturerId);
     }
 
     public void addProduct(User user, Product product){

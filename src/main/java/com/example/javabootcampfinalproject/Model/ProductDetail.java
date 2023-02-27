@@ -17,11 +17,11 @@ public class ProductDetail {
 
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id",referencedColumnName = "id")
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id",referencedColumnName = "id")
     @JsonIgnore
     private Orders order;

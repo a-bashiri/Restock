@@ -27,7 +27,6 @@ public class Manufacturer {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
-    @JsonIgnore
     private List<Product> products;
 
     @OneToMany(mappedBy = "manufacturer")

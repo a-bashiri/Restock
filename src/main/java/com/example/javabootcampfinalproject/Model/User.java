@@ -25,7 +25,8 @@ public class User implements UserDetails {
     private String password;
     private String phoneNumber;
 
-    private String role;
+    @Enumerated(EnumType.ORDINAL)
+    private Role role;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @PrimaryKeyJoinColumn
@@ -37,7 +38,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role));
+        return Collections.singleton(new SimpleGrantedAuthority(role.toString()));
     }
 
     @Override

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -18,6 +20,11 @@ public class Product {
     private float price;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "manufacturer_id",referencedColumnName = "user_id")
     private Manufacturer manufacturer;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<ProductDetail> productDetailList;
 }

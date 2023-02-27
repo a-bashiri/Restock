@@ -5,6 +5,7 @@ import com.example.javabootcampfinalproject.DTO.ManufacturerDTO;
 import com.example.javabootcampfinalproject.Exception.ApiException;
 import com.example.javabootcampfinalproject.Model.Customer;
 import com.example.javabootcampfinalproject.Model.Manufacturer;
+import com.example.javabootcampfinalproject.Model.Role;
 import com.example.javabootcampfinalproject.Model.User;
 import com.example.javabootcampfinalproject.Repository.CustomerRepository;
 import com.example.javabootcampfinalproject.Repository.ManufacturerRepository;
@@ -35,8 +36,8 @@ public class UserService implements UserDetailsService {
     }
 
     public void registerManufacturer(ManufacturerDTO dto){
-        User user = new User(null, dto.getUsername(), dto.getPassword(), dto.getPhoneNumber(),"MANUFACTURER",null,null);
-        Manufacturer manufacturer = new Manufacturer(null, dto.getName(), dto.getCategory(), dto.getLocation(),user,null);
+        User user = new User(null, dto.getUsername(), dto.getPassword(), dto.getPhoneNumber(), Role.MANUFACTURER,null,null);
+        Manufacturer manufacturer = new Manufacturer(null, dto.getName(), dto.getCategory(), dto.getLocation(),user,null, null);
         String hashed = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(hashed);
         manufacturerService.addManufacturer(manufacturer);
@@ -44,14 +45,15 @@ public class UserService implements UserDetailsService {
     }
 
     public void registerCustomer(CustomerDTO dto){
-        User user = new User(null, dto.getUsername(), dto.getPassword(), dto.getPhoneNumber(),"CUSTOMER",null,null);
-        Customer customer = new Customer(null, dto.getName(), dto.getLocation(),user);
+        User user = new User(null, dto.getUsername(), dto.getPassword(), dto.getPhoneNumber(),Role.CUSTOMER,null,null);
+        Customer customer = new Customer(null, dto.getName(), dto.getLocation(),user, null);
         String hashed = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(hashed);
         customerService.addCustomer(customer);
         userRepository.save(user);
     }
 
+    //TODO: only for admin
     public void deleteUser(Integer id){
         User user = userRepository.findUserById(id);
         if (user == null)
