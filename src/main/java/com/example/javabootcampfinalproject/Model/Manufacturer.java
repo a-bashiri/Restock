@@ -29,4 +29,7 @@ public class Manufacturer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
     @JsonIgnore
     private List<Product> products;
+
+    @OneToMany(mappedBy = "manufacturer")
+    private List<Orders> orders;
 }

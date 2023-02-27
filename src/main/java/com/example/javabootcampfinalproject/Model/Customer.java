@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -23,4 +25,7 @@ public class Customer {
     @MapsId
     @JsonIgnore
     private User user;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Orders> orders;
 }

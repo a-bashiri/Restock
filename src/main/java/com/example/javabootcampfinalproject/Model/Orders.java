@@ -1,5 +1,6 @@
 package com.example.javabootcampfinalproject.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,4 +31,14 @@ public class Orders {
 
     @OneToMany(mappedBy = "order")
     private List<ProductDetail> productDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Manufacturer manufacturer;
 }

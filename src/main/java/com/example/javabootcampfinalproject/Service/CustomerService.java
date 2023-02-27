@@ -27,7 +27,7 @@ public class CustomerService {
             throw new ApiException("ID not found",400);
         oldCustomer.setName(dto.getName());
         oldCustomer.setLocation(dto.getLocation());
+
         customerRepository.save(oldCustomer);
-        // hello
     }
 }
