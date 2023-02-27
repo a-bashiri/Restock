@@ -28,6 +28,6 @@ public class Orders {
     @ManyToMany(mappedBy = "orders")
     private List<SpecialRequest> specialRequests;
 
-    @ManyToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "order")
     private List<ProductDetails> productDetails;
 }

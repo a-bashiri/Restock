@@ -23,7 +23,8 @@ public class ProductDetails {
     @JoinColumn(name = "product_id",referencedColumnName = "id")
     private Product product;
 
-    @ManyToMany
+    @ManyToOne
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
     @JsonIgnore
-    private List<Orders> orders;
+    private Orders order;
 }
