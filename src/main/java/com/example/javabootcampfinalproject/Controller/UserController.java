@@ -64,9 +64,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user1);
     }
 
-    @GetMapping("/order")
-    public ResponseEntity getdto(@RequestBody OrderDTO orderDTO){
-        return ResponseEntity.status(200).body(ordersService.getDto(orderDTO));
-    }
+//    @GetMapping("/order")
+//    public ResponseEntity getdto(@RequestBody OrderDTO orderDTO){
+//        return ResponseEntity.status(200).body(ordersService.getDto(orderDTO));
+//    }
 
 }
