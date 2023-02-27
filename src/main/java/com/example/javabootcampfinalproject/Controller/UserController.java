@@ -2,9 +2,12 @@ package com.example.javabootcampfinalproject.Controller;
 
 import com.example.javabootcampfinalproject.DTO.CustomerDTO;
 import com.example.javabootcampfinalproject.DTO.ManufacturerDTO;
+import com.example.javabootcampfinalproject.DTO.OrderDTO;
 import com.example.javabootcampfinalproject.Model.User;
 import com.example.javabootcampfinalproject.Response;
+import com.example.javabootcampfinalproject.Service.OrdersService;
 import com.example.javabootcampfinalproject.Service.UserService;
+import jakarta.persistence.criteria.Order;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final OrdersService ordersService;
 
 
     @PostMapping("/register/manufacturer")
@@ -58,6 +62,11 @@ public class UserController {
     public ResponseEntity<User> getInfo(@AuthenticationPrincipal User user){
         User user1 = userService.getInfo(user.getId());
         return ResponseEntity.status(HttpStatus.OK).body(user1);
+    }
+
+    @GetMapping("/order")
+    public ResponseEntity getdto(@RequestBody OrderDTO orderDTO){
+        return ResponseEntity.status(200).body(ordersService.getDto(orderDTO));
     }
 
 }

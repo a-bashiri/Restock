@@ -9,9 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDTO {
     private Integer manufacturer_id;
-    private List<Integer> products_ids;
-    private List<Integer> quantities;
+    private List<ProductDetailDTO> productDetails;
     private List<Integer> specialRequests_ids;
-
 
 }
