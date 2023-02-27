@@ -29,5 +29,5 @@ public class Orders {
     private List<SpecialRequest> specialRequests;
 
     @OneToMany(mappedBy = "order")
-    private List<ProductDetails> productDetails;
+    private List<ProductDetail> productDetails;
 }
