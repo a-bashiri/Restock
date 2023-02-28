@@ -180,15 +180,22 @@ public class OrdersService {
         }
 
         //From OUT_FOR_DELIVERY to DELIVERED or OUT_FOR_RETURNING
-        if ((newStatus == OrderStatus.OUT_FOR_DELIVERY) &&
-                (order.getStatus() == OrderStatus.DELIVERED || order.getStatus() == OrderStatus.OUT_FOR_RETURNING)) {
+        if ((newStatus == OrderStatus.DELIVERED || (order.getStatus() == OrderStatus.OUT_FOR_DELIVERY)) &&
+                (order.getStatus() == OrderStatus.OUT_FOR_DELIVERY)) {
+            updateStatus(orderId, newStatus);
+            hasCorrectStatus = true;
+        }
+
+        //From DELIVERED or OUT_FOR_DELIVERY to OUT_FOR_RETURNING
+        if ((newStatus == OrderStatus.OUT_FOR_RETURNING) &&
+                ((order.getStatus() == OrderStatus.DELIVERED) || (order.getStatus() == OrderStatus.OUT_FOR_DELIVERY))) {
             updateStatus(orderId, newStatus);
             hasCorrectStatus = true;
         }
 
         //From OUT_FOR_RETURNING to RETURNED
-        if ((newStatus == OrderStatus.OUT_FOR_RETURNING) &&
-                (order.getStatus() == OrderStatus.RETURNED)) {
+        if ((newStatus == OrderStatus.RETURNED) &&
+                (order.getStatus() == OrderStatus.OUT_FOR_RETURNING)) {
             updateStatus(orderId, newStatus);
             hasCorrectStatus = true;
         }

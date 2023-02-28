@@ -60,7 +60,7 @@ public class AdminController {
 
     @PutMapping("/order/{orderId}")
     public ResponseEntity adminActionOnOrder(@AuthenticationPrincipal User user, @PathVariable Integer orderId,@Valid @RequestBody ActionDTO action){
-        ordersService.adminActionOnOrder(user,orderId,action.action);
+        ordersService.adminActionOnOrder(user,orderId,action.getAction());
         return ResponseEntity.status(200).body("order status changed!");
     }
 
