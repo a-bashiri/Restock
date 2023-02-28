@@ -111,8 +111,9 @@ public class OrdersService {
 
     public void manufacturerUpdateStatus(User user, Integer orderId, OrderStatus newStatus){
 
-        Orders order = getOrder(orderId);
+        boolean hasCorrectStatus = false;
 
+        Orders order = getOrder(orderId);
         if (order == null)
             throw new ApiException("Order not found", 404);
 
@@ -121,17 +122,25 @@ public class OrdersService {
 
         //From pending to accepted/rejected
         if ((newStatus == OrderStatus.IN_PROGRESS || newStatus == OrderStatus.REJECTED)
-                && order.getStatus() == OrderStatus.PENDING)
+                && order.getStatus() == OrderStatus.PENDING) {
             updateStatus(orderId, newStatus);
+            hasCorrectStatus = true;
+        }
 
         //From In_Progress to Fulfilled
         if ((newStatus == OrderStatus.FULFILLED) &&
-                (order.getStatus() == OrderStatus.IN_PROGRESS))
+                (order.getStatus() == OrderStatus.IN_PROGRESS)) {
             updateStatus(orderId, newStatus);
+            hasCorrectStatus = true;
+        }
+
+        if (!hasCorrectStatus)
+            throw new ApiException("You are not allowed to change to this status", 401);
     }
 
     public void customerUpdateStatus(User user, Integer orderId, OrderStatus newStatus){
 
+        boolean hasCorrectStatus = false;
         Orders order = getOrder(orderId);
 
         if (order == null)
@@ -142,11 +151,19 @@ public class OrdersService {
 
         //From PENDING to CANCELED
         if ((newStatus == OrderStatus.CANCELED)
-                && order.getStatus() == OrderStatus.PENDING)
+                && order.getStatus() == OrderStatus.PENDING){
             updateStatus(orderId, newStatus);
+            hasCorrectStatus = true;
+        }
+
+        if (!hasCorrectStatus)
+            throw new ApiException("You are not allowed to change to this status", 401);
+
     }
 
-    private void adminUpdateStatus(User user, Integer orderId, OrderStatus newStatus){
+    private void adminUpdateStatus(User user, Integer orderId, OrderStatus newStatus) {
+
+        boolean hasCorrectStatus = false;
 
         if (user.getRole() != Role.ADMIN)
             throw new ApiException("Unauthorized", 401);
@@ -157,18 +174,28 @@ public class OrdersService {
 
         //From FULFILLED to OUT_FOR_DELIVERY
         if ((newStatus == OrderStatus.OUT_FOR_DELIVERY)
-                && order.getStatus() == OrderStatus.FULFILLED)
+                && order.getStatus() == OrderStatus.FULFILLED) {
             updateStatus(orderId, newStatus);
+            hasCorrectStatus = true;
+        }
 
         //From OUT_FOR_DELIVERY to DELIVERED or OUT_FOR_RETURNING
         if ((newStatus == OrderStatus.OUT_FOR_DELIVERY) &&
-                (order.getStatus() == OrderStatus.DELIVERED || order.getStatus() == OrderStatus.OUT_FOR_RETURNING))
+                (order.getStatus() == OrderStatus.DELIVERED || order.getStatus() == OrderStatus.OUT_FOR_RETURNING)) {
             updateStatus(orderId, newStatus);
+            hasCorrectStatus = true;
+        }
 
         //From OUT_FOR_RETURNING to RETURNED
         if ((newStatus == OrderStatus.OUT_FOR_RETURNING) &&
-                (order.getStatus() == OrderStatus.RETURNED))
+                (order.getStatus() == OrderStatus.RETURNED)) {
             updateStatus(orderId, newStatus);
+            hasCorrectStatus = true;
+        }
+
+        if (!hasCorrectStatus)
+            throw new ApiException("You are not allowed to change to this status", 401);
+
     }
 
     //TODO: Admin Only
@@ -196,7 +223,9 @@ public class OrdersService {
             manufacturerUpdateStatus(user, orderId, OrderStatus.REJECTED);
         } else if (action == Action.FULFILL){
             manufacturerUpdateStatus(user, orderId, OrderStatus.FULFILLED);
-        }
+        } else
+            throw new ApiException("Wrong action", 401);
+
     }
 
     public void customerActionOnOrder(User user, Integer orderId, Action action){
@@ -206,6 +235,8 @@ public class OrdersService {
 
         if (action == Action.CANCEL)
             customerUpdateStatus(user, orderId, OrderStatus.CANCELED);
+        else
+            throw new ApiException("Wrong action", 401);
     }
 
     //TODO: Admin Only
@@ -224,6 +255,8 @@ public class OrdersService {
             adminUpdateStatus(user, orderId, OrderStatus.OUT_FOR_RETURNING);
         } else if (action == Action.RETURNED){
             adminUpdateStatus(user, orderId, OrderStatus.RETURNED);
+        } else {
+            throw new ApiException("Wrong action", 401);
         }
     }
 

@@ -29,6 +29,6 @@ public class Manufacturer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturer")
     private List<Product> products;
 
-    @OneToMany(mappedBy = "manufacturer")
+    @OneToMany(mappedBy = "manufacturer", fetch = FetchType.EAGER)
     private List<Orders> orders;
 }
