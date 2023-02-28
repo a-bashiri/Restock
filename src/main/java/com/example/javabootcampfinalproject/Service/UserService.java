@@ -50,7 +50,6 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    //TODO: only for admin
     public void deleteUser(Integer id){
         User user = userRepository.findUserById(id);
         if (user == null)
