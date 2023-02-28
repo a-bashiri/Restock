@@ -1,4 +1,4 @@
-package com.example.javabootcampfinalproject;
+package com.example.javabootcampfinalproject.Utility;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

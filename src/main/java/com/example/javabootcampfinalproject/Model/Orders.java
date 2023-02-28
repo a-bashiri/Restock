@@ -1,5 +1,6 @@
 package com.example.javabootcampfinalproject.Model;
 
+import com.example.javabootcampfinalproject.Utility.Enum.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

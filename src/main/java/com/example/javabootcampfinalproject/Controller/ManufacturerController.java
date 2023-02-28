@@ -1,9 +1,8 @@
 package com.example.javabootcampfinalproject.Controller;
 
-import com.example.javabootcampfinalproject.DTO.ManufacturerDTO;
 import com.example.javabootcampfinalproject.Model.Product;
 import com.example.javabootcampfinalproject.Model.User;
-import com.example.javabootcampfinalproject.Response;
+import com.example.javabootcampfinalproject.Utility.Response;
 import com.example.javabootcampfinalproject.Service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

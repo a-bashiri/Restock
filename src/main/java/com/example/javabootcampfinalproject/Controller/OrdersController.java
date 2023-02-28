@@ -1,7 +1,7 @@
 package com.example.javabootcampfinalproject.Controller;
 
 import com.example.javabootcampfinalproject.DTO.OrderDTO;
-import com.example.javabootcampfinalproject.Model.Action;
+import com.example.javabootcampfinalproject.Utility.Enum.Action;
 import com.example.javabootcampfinalproject.Model.Orders;
 import com.example.javabootcampfinalproject.Model.User;
 import com.example.javabootcampfinalproject.Service.OrdersService;

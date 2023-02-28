@@ -1,4 +1,4 @@
-package com.example.javabootcampfinalproject.Model;
+package com.example.javabootcampfinalproject.Utility.Enum;
 
 public enum Role {
     CUSTOMER,

@@ -2,12 +2,10 @@ package com.example.javabootcampfinalproject.Controller;
 
 import com.example.javabootcampfinalproject.DTO.CustomerDTO;
 import com.example.javabootcampfinalproject.DTO.ManufacturerDTO;
-import com.example.javabootcampfinalproject.DTO.OrderDTO;
 import com.example.javabootcampfinalproject.Model.User;
-import com.example.javabootcampfinalproject.Response;
+import com.example.javabootcampfinalproject.Utility.Response;
 import com.example.javabootcampfinalproject.Service.OrdersService;
 import com.example.javabootcampfinalproject.Service.UserService;
-import jakarta.persistence.criteria.Order;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
