@@ -2,6 +2,7 @@ package com.example.javabootcampfinalproject.Config;
 
 
 import com.example.javabootcampfinalproject.Service.UserService;
+import com.example.javabootcampfinalproject.Utility.Enum.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +39,7 @@ public class SecurityConfig {
                     .authenticationProvider(authenticationProvider())
                     .authorizeHttpRequests()
                     .requestMatchers(HttpMethod.POST,"/api/v1/user/register/**").permitAll()
-                    .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
+                    .requestMatchers("/api/v1/admin/**").hasAuthority(Role.ADMIN.toString())
                     .anyRequest().authenticated()
                     .and()
                     .logout().logoutUrl("/api/v1/auth/logout")
