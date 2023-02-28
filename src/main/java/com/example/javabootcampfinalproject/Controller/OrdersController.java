@@ -28,9 +28,14 @@ public class OrdersController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity createOrder(@AuthenticationPrincipal User user) {
+    public ResponseEntity getAllOrders(@AuthenticationPrincipal User user) {
         List<Orders> ordersList = ordersService.getAllOrdersForUser(user);
         return ResponseEntity.status(200).body(ordersList);
+    }
+
+    @GetMapping("/all/status")
+    public ResponseEntity getAllOrdersWithStatus(@AuthenticationPrincipal User user, @RequestBody Orders order){
+        return ResponseEntity.status(200).body(ordersService.getAllOrdersForUserWithStatus(user, order.getStatus()));
     }
 
     @PutMapping("/manufacturer/reject/{order_id}")
@@ -54,11 +59,4 @@ public class OrdersController {
 
 
 
-
-
-//    @PostMapping("/all")
-//    public ResponseEntity createOrder(@AuthenticationPrincipal User user) {
-//        List<Orders> ordersList = ordersService.getAllOrdersForUser(user);
-//        return ResponseEntity.status(200).body(ordersList);
-//    }
 }

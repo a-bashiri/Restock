@@ -45,6 +45,31 @@ public class OrdersService {
             return new ArrayList<Orders>();
     }
 
+    public List<Orders> getAllOrdersForUserWithStatus(User user, OrderStatus orderStatus){
+
+        if (user.getRole() == Role.CUSTOMER)
+            return findOrdersForCustomerWithStatus(user, orderStatus);
+        else if (user.getRole() == Role.MANUFACTURER)
+            return findOrdersForManufacturerWithStatus(user, orderStatus);
+        else if (user.getRole() == Role.ADMIN)
+            return findOrdersForAdminWithStatus(orderStatus);
+        else
+            return new ArrayList<Orders>();
+    }
+
+
+    private List<Orders> findOrdersForAdminWithStatus(OrderStatus status){
+        return ordersRepository.findOrdersByStatus(status);
+    }
+
+    private List<Orders> findOrdersForCustomerWithStatus(User user, OrderStatus status){
+        return ordersRepository.findOrdersByCustomer_IdAndStatus(user.getCustomer().getId(), status);
+    }
+
+    private List<Orders> findOrdersForManufacturerWithStatus(User user, OrderStatus status){
+        return ordersRepository.findOrdersByManufacturer_IdAndStatus(user.getManufacturer().getId(), status);
+    }
+
     public void addOrder(User user, OrderDTO orderDTO){
         OrderStatus orderStatus = OrderStatus.PENDING;
         Date creationDate = new Date();
@@ -121,8 +146,7 @@ public class OrdersService {
             updateStatus(orderId, newStatus);
     }
 
-    //TODO: Admin Only
-    public void adminUpdateStatus(User user, Integer orderId, OrderStatus newStatus){
+    private void adminUpdateStatus(User user, Integer orderId, OrderStatus newStatus){
 
         if (user.getRole() != Role.ADMIN)
             throw new ApiException("Unauthorized", 401);
@@ -172,6 +196,34 @@ public class OrdersService {
             manufacturerUpdateStatus(user, orderId, OrderStatus.REJECTED);
         } else if (action == Action.FULFILL){
             manufacturerUpdateStatus(user, orderId, OrderStatus.FULFILLED);
+        }
+    }
+
+    public void customerActionOnOrder(User user, Integer orderId, Action action){
+        Orders order = getOrder(orderId);
+        if (order == null)
+            throw new ApiException("Order not found", 404);
+
+        if (action == Action.CANCEL)
+            customerUpdateStatus(user, orderId, OrderStatus.CANCELED);
+    }
+
+    //TODO: Admin Only
+    public void adminActionOnOrder(User user, Integer orderId, Action action){
+        Orders order = getOrder(orderId);
+        if (order == null)
+            throw new ApiException("Order not found", 404);
+
+        if (action == Action.PICKED_FOR_DELIVERY){
+            adminUpdateStatus(user, orderId, OrderStatus.OUT_FOR_DELIVERY);
+        } else if (action == Action.DELIVERED){
+            order.setDeliverDate(new Date());
+            ordersRepository.save(order);
+            adminUpdateStatus(user, orderId, OrderStatus.DELIVERED);
+        } else if (action == Action.PICKED_FOR_RETURNING){
+            adminUpdateStatus(user, orderId, OrderStatus.OUT_FOR_RETURNING);
+        } else if (action == Action.RETURNED){
+            adminUpdateStatus(user, orderId, OrderStatus.RETURNED);
         }
     }
 
