@@ -77,7 +77,7 @@ public class OrdersService {
         Manufacturer manufacturer = manufacturerService.getManufacturer(orderDTO.getManufacturer_id());
         if (manufacturer == null)
             throw new ApiException("Manufacturer Id was not found", 404);
-        List<SpecialRequest> specialRequests = specialRequestsService.convertToList(orderDTO.getSpecialRequests_ids());
+        List<SpecialRequest> specialRequests = specialRequestsService.convertToList(orderDTO.getSpecialRequests_ids(), orderDTO.getRepeatOrderInDays());
         String sourceLocation = manufacturer.getLocation();
         Orders order = new Orders(null,
                 orderStatus,
@@ -91,7 +91,13 @@ public class OrdersService {
                 null,
                 user.getCustomer(),
                 manufacturer);
+
         ordersRepository.save(order);
+
+        for(SpecialRequest specialRequest : specialRequests){
+            specialRequest.getOrders().add(order);
+            specialRequestsService.addSpecialRequest(specialRequest);
+        }
 
         List<ProductDetail> productDetails = productDetailsService.convertToList(orderDTO, order);
 

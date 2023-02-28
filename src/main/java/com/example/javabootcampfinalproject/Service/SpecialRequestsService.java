@@ -47,13 +47,17 @@ public class SpecialRequestsService {
         specialRequestsRepository.delete(specialRequest);
     }
 
-    public List<SpecialRequest> convertToList(List<Integer> ids){
+    public List<SpecialRequest> convertToList(List<Integer> ids, Integer days){
         List<SpecialRequest> specialRequests = new ArrayList<SpecialRequest>();
 
-        for(Integer id : ids){
+        for(Integer id : ids) {
             SpecialRequest specialRequest = specialRequestsRepository.findSpecialRequestById(id);
-            if ( specialRequest == null)
-                throw new ApiException("ID not found",404);
+            if (specialRequest == null)
+                throw new ApiException("ID not found", 404);
+            if (specialRequest.getRequest().equalsIgnoreCase("periodic order")) {
+                specialRequest.setRepeatOrderInDays(days);
+                specialRequestsRepository.save(specialRequest);
+            }
             specialRequests.add(specialRequest);
         }
 

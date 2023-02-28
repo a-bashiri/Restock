@@ -2,6 +2,8 @@ package com.example.javabootcampfinalproject.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +21,12 @@ public class SpecialRequest {
     private Integer id;
 
 
+    @NotEmpty
     private String request;
+    @NotNull
     private float price;
+
+    private Integer repeatOrderInDays;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore

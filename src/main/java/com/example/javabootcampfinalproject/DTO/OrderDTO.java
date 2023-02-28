@@ -20,5 +20,7 @@ public class OrderDTO {
     @NotNull
     private List<Integer> specialRequests_ids;
 
+    private Integer repeatOrderInDays;
+
 
 }
