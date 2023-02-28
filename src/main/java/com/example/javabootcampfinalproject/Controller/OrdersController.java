@@ -50,10 +50,10 @@ public class OrdersController {
         return ResponseEntity.status(200).body("Order Accepted");
     }
 
-    @PutMapping("/manufacturer/fulfilled/{order_id}")
+    @PutMapping("/manufacturer/fulfill/{order_id}")
     public ResponseEntity fulfillOrder(@AuthenticationPrincipal User user, @PathVariable Integer order_id) {
         ordersService.manufacturerActionOnOrder(user, order_id, Action.FULFILL);
-        return ResponseEntity.status(200).body("Order Accepted");
+        return ResponseEntity.status(200).body("Order Fulfilled");
     }
 
 
