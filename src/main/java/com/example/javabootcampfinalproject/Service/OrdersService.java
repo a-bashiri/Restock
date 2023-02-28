@@ -36,9 +36,9 @@ public class OrdersService {
     public List<Orders> getAllOrdersForUser(User user){
 
         if (user.getRole() == Role.CUSTOMER)
-            return user.getCustomer().getOrders();
+            return ordersRepository.findOrdersByCustomer_Id(user.getCustomer().getId());
         else if (user.getRole() == Role.MANUFACTURER)
-            return user.getManufacturer().getOrders();
+            return ordersRepository.findOrdersByManufacturer_Id(user.getManufacturer().getId());
         else if (user.getRole() == Role.ADMIN)
             return getAllOrder();
         else

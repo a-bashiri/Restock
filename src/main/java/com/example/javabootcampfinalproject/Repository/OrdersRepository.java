@@ -15,4 +15,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     List<Orders> findOrdersByCustomer_IdAndStatus(Integer id, OrderStatus Status);
     List<Orders> findOrdersByManufacturer_IdAndStatus(Integer id, OrderStatus Status);
     List<Orders> findOrdersByStatus(OrderStatus Status);
+    List<Orders> findOrdersByCustomer_Id(Integer id);
+    List<Orders> findOrdersByManufacturer_Id(Integer id);
+
 }
