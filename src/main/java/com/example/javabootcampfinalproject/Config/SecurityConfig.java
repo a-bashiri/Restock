@@ -14,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -21,6 +23,20 @@ public class SecurityConfig {
 
 
     private final UserService userService;
+    private final String[] adminAPIs = {
+            "/api/v1/admin/**",
+    };
+    private final String[] customerAPIs = {
+            "/api/v1/customer/**",
+            "/api/v1/orders/create",
+            "/api/v1/user/update/customer"
+    };
+
+    private final String[] manufacturerAPIs = {
+            "/api/v1/manufacturer/**",
+            "/api/v1/user/update/manufacturer",
+            "/api/v1/orders/manufacturer/**"
+    };
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
@@ -39,7 +55,9 @@ public class SecurityConfig {
                     .authenticationProvider(authenticationProvider())
                     .authorizeHttpRequests()
                     .requestMatchers(HttpMethod.POST,"/api/v1/user/register/**").permitAll()
-                    .requestMatchers("/api/v1/admin/**").hasAuthority(Role.ADMIN.toString())
+                    .requestMatchers(adminAPIs).hasAuthority(Role.ADMIN.toString())
+                    .requestMatchers(customerAPIs).hasAuthority(Role.CUSTOMER.toString())
+                    .requestMatchers(manufacturerAPIs).hasAuthority(Role.MANUFACTURER.toString())
                     .anyRequest().authenticated()
                     .and()
                     .logout().logoutUrl("/api/v1/auth/logout")
