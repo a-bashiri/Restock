@@ -21,7 +21,8 @@ UML Diagram of Restock:
 
 Use Case Diagram of Restock:
 
-![use case](https://user-images.githubusercontent.com/104116529/222146361-02a369bb-20ab-49be-8a83-f1249efb66b6.png)
+![Final Project use case background](https://user-images.githubusercontent.com/17689067/222170427-fc12f1a4-d051-4b3a-91b8-f156728a06f0.png)
+
 
 
 Figma Link: 
