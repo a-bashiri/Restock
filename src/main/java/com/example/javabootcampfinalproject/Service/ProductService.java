@@ -17,7 +17,10 @@ public class ProductService {
 
 
     public Product getProduct(Integer productId){
-        return productRepository.findProductById(productId);
+        Product product = productRepository.findProductById(productId);
+        if (product == null)
+            throw new ApiException("ID not found",404);
+        return product;
     }
 
     public List<Product> getAllProducts(User user){

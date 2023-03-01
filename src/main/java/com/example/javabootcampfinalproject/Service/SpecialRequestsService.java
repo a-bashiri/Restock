@@ -17,11 +17,15 @@ public class SpecialRequestsService {
 
 
     public SpecialRequest getSpecialRequest(Integer id){
-        return specialRequestsRepository.findSpecialRequestById(id);
+        SpecialRequest specialRequest = specialRequestsRepository.findSpecialRequestById(id);
+        if (specialRequest == null)
+            throw new ApiException("ID not found",404);
+        return specialRequest;
     }
 
     public List<SpecialRequest> getAllSpecialRequests(){
-        return specialRequestsRepository.findAll();
+        List<SpecialRequest> specialRequests = specialRequestsRepository.findAll();
+        return specialRequests;
     }
 
     //TODO: Admin only
