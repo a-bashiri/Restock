@@ -42,6 +42,5 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "manufacturer_id",referencedColumnName = "user_id")
-    @JsonIgnore
     private Manufacturer manufacturer;
 }

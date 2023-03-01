@@ -22,8 +22,10 @@ public class SpecialRequest {
 
 
     @NotEmpty
+    @Column(nullable = false)
     private String request;
     @NotNull
+    @Column(nullable = false)
     private float price;
 
     private Integer repeatOrderInDays;

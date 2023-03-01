@@ -16,9 +16,11 @@ public class Manufacturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String category;
+    @Column(nullable = false)
     private String location;
 
     @OneToOne
@@ -30,5 +32,6 @@ public class Manufacturer {
     private List<Product> products;
 
     @OneToMany(mappedBy = "manufacturer", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Orders> orders;
 }

@@ -186,7 +186,7 @@ public class OrdersService {
         }
 
         //From OUT_FOR_DELIVERY to DELIVERED or OUT_FOR_RETURNING
-        if ((newStatus == OrderStatus.DELIVERED || (order.getStatus() == OrderStatus.OUT_FOR_DELIVERY)) &&
+        if ((newStatus == OrderStatus.DELIVERED || (order.getStatus() == OrderStatus.OUT_FOR_RETURNING)) &&
                 (order.getStatus() == OrderStatus.OUT_FOR_DELIVERY)) {
             updateStatus(orderId, newStatus);
             hasCorrectStatus = true;

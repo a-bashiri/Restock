@@ -31,7 +31,7 @@ public class CustomerController {
     @PutMapping("/order/{order_id}/cancel")
     public ResponseEntity cancelOrder(@AuthenticationPrincipal User user, @PathVariable Integer order_id) {
         ordersService.customerActionOnOrder(user, order_id, Action.CANCEL);
-        return ResponseEntity.status(200).body("Order Accepted");
+        return ResponseEntity.status(200).body("Order Canceled!");
     }
 
     @GetMapping("/manufacturers")

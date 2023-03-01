@@ -2,6 +2,7 @@ package com.example.javabootcampfinalproject.Model;
 
 import com.example.javabootcampfinalproject.Utility.Enum.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,9 @@ public class User implements UserDetails {
 
     @Column(unique = true,nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String phoneNumber;
 
     @Enumerated(EnumType.ORDINAL)
