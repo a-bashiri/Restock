@@ -7,6 +7,8 @@ import com.example.javabootcampfinalproject.Repository.ManufacturerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ManufacturerService {
@@ -14,6 +16,10 @@ public class ManufacturerService {
 
     public Manufacturer getManufacturer(Integer id){
         return manufacturerRepository.findManufacturerById(id);
+    }
+
+    public List<Manufacturer> getAllManufacturers(){
+        return manufacturerRepository.findAll();
     }
 
     public void addManufacturer(Manufacturer manufacturer){
