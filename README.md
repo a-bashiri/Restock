@@ -32,6 +32,8 @@ https://www.figma.com/file/QNrD3o3vI7JPEXb5pfeU4b/Restock?node-id=0%3A1&t=CXon6T
 
 Postman documentation: 
 
+![Restock Postman QR code](https://user-images.githubusercontent.com/17689067/222173969-324977d9-2af2-47bf-805b-3fadd7205aa0.png)
+
 https://documenter.getpostman.com/view/25472544/2s93CSoVvd
 
 
