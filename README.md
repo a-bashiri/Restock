@@ -15,13 +15,23 @@ The application surves as a hub to link between Customers (Supermarkets and mini
 
 UML Diagram of Restock:
 
-![alt text](https://imgur.com/a/cazLj2t)
+![uml](https://user-images.githubusercontent.com/104116529/222146333-3d1631b7-a386-410c-87f1-7914558e4493.png)
 
 
 
 Use Case Diagram of Restock:
 
-![alt text](https://imgur.com/9F3wmyf)
+![use case](https://user-images.githubusercontent.com/104116529/222146361-02a369bb-20ab-49be-8a83-f1249efb66b6.png)
+
+
+Figma Link: 
+
+https://www.figma.com/file/QNrD3o3vI7JPEXb5pfeU4b/Restock?node-id=0%3A1&t=CXon6TQa3sc5mYfw-1
+
+
+Postman documentation: 
+
+https://documenter.getpostman.com/view/25472544/2s93CSoVvd
 
 
 
